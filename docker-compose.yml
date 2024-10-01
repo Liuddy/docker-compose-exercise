@@ -1,0 +1,16 @@
+services:
+  database:
+    image: mysql:9.0
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: movie123
+    volumes:
+      - ./database/database.sql:/docker-entrypoint-initdb.d/database.sql
+    
+  webapp:
+    build: ./webapp
+    container_name: webapp
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
